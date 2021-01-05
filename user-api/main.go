@@ -1,19 +1,17 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"os"
 
-	redis "gopkg.in/redis.v4"
+	fiber "github.com/gofiber/fiber/v2"
 )
 
 func main() {
-	client := redis.NewClient(&redis.Options{
-		Addr:     os.Getenv("REDIS_URL"),
-		Password: "",
-		DB:       0,
+	app := fiber.New()
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("hello")
 	})
 
-	pong, err := client.Ping().Result()
-	fmt.Println(pong, err)
+	log.Fatal(app.Listen(":" + os.Getenv("PORT")))
 }
