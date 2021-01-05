@@ -1,8 +1,20 @@
 version: '2'
 services:
     app:
-        image: golang:1.6.1-alpine
+        image: golang:1.15.1-alpine
+        volumes:
+          - .:/go/src/BE-AalailsonAndrade/order-api
+        working_dir: /go/src/BE-AalailsonAndrade/order-api
+        command: go run main.go
+        environment:
+            REDIS_URL: redis_order:6379
     redis_order:
         image: sickp/alpine-redis:3.2.2
-        ports:
-            - "6380:6379"
+        # ports:
+            # - "6380:6379"
+        depends_on:
+            - helper
+    helper:
+        image: alpine
+        command: sh -c "echo never > /sys/kernel/mm/transparent_hugepage/enabled && echo 'vm.overcommit_memory=1' > /etc/sysctl.conf && sysctl vm.overcommit_memory=1" 
+        privileged: true
