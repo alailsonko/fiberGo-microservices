@@ -18,6 +18,7 @@ type User struct {
 func (ut User) ValidateUser() error {
 	return validation.ValidateStruct(&ut,
 		validation.Field(&ut.Username, validation.Required),
+		validation.Field(&ut.Cpf, validation.Required),
 	)
 }
 
