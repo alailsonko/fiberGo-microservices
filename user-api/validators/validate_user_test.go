@@ -43,11 +43,25 @@ func TestValidateUser(t *testing.T) {
 		t.Log("passing: should return error if name is not provided.")
 	}
 
+	// should return error if cpf is not length 11
+
+	err = ut.ValidateUser()
+	fmt.Println(err)
+
+	expected = "cpf: the length must be exactly 11."
+
+	if err != nil && err.Error() == expected {
+		fmt.Println(err.Error(), expected)
+		t.Errorf("should return error if cpf is not length 11: %v", err)
+	} else if err == nil {
+		fmt.Println(err, expected)
+		t.Log("passing: should return error if cpf is not length 11")
+	}
+
 }
 
 // name cpf email phone_number
 
-// should return error if cpf min11-max11 is not provided
 // should return error if email is not provided
 // should return error if email is not invalid
 // should return error if phone_number is not provided
