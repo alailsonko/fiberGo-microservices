@@ -17,8 +17,10 @@ services:
             PORT: 3030
     redis_user:
         image: sickp/alpine-redis:3.2.2
-        # ports:
-            # - "6379:6379"
+        ports:
+            - 6379:6379
+        expose:
+            - 6379
         depends_on:
             - helper
     pg_user:
