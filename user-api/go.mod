@@ -12,6 +12,7 @@ require (
 	github.com/kardianos/govendor v1.0.9 // indirect
 	github.com/klauspost/compress v1.11.4 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/stretchr/testify v1.4.0
 	github.com/valyala/fasthttp v1.19.0 // indirect
 	golang.org/x/sys v0.0.0-20210104204734-6f8348627aad // indirect
 	golang.org/x/tools v0.0.0-20210105172516-c658f99295e8 // indirect
