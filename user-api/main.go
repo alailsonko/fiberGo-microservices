@@ -4,14 +4,14 @@ import (
 	"log"
 	"os"
 
-	fiber "github.com/gofiber/fiber/v2"
+	"user-api.com/routes"
+	"user-api.com/setup_app"
 )
 
 func main() {
-	app := fiber.New()
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("hello")
-	})
+	app := setup_app.SetupApp()
+
+	routes.UserSetupRoutes(app)
 
 	log.Fatal(app.Listen(":" + os.Getenv("PORT")))
 }
