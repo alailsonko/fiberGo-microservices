@@ -9,6 +9,8 @@ require (
 	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
 	github.com/gofiber/fiber/v2 v2.3.2
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
+	github.com/jinzhu/gorm v1.9.16
+	github.com/joho/godotenv v1.3.0
 	github.com/kardianos/govendor v1.0.9 // indirect
 	github.com/klauspost/compress v1.11.4 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
