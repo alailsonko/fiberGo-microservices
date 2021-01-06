@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	validation "github.com/go-ozzo/ozzo-validation/v4"
+	"github.com/go-ozzo/ozzo-validation/v4/is"
 	"user-api.com/usecases"
 )
 
@@ -19,6 +20,7 @@ func (ut User) ValidateUser() error {
 	return validation.ValidateStruct(&ut,
 		validation.Field(&ut.Username, validation.Required),
 		validation.Field(&ut.Cpf, validation.Required, validation.Length(11, 11)),
+		validation.Field(&ut.Email, validation.Required, is.Email),
 	)
 }
 
