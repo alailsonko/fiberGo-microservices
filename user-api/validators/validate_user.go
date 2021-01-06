@@ -10,6 +10,10 @@ import (
 
 // name cpf email phone_number
 
+type error interface {
+	Error() string
+}
+
 // User - types of the user
 type User struct {
 	usecases.UserType

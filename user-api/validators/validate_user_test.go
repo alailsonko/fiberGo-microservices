@@ -5,10 +5,6 @@ import (
 	"testing"
 )
 
-type error interface {
-	Error() string
-}
-
 func TestValidateUser(t *testing.T) {
 
 	// should return error if name is not provided
