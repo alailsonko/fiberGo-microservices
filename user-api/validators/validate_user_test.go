@@ -85,10 +85,36 @@ func TestValidateUser(t *testing.T) {
 		fmt.Println(err, expected)
 		t.Log("passing: should return error if email is not valid")
 	}
+	// should return error if phone_number is not provided
+	ut.PhoneNumber = "86999999999"
+	err = ut.ValidateUser()
+	fmt.Println(err)
+
+	expected = "phone_number: cannot be blank."
+
+	if err != nil && err.Error() == expected {
+		fmt.Println(err.Error(), expected)
+		t.Errorf("should return error if phone_number is not provided: %v", err)
+	} else if err == nil {
+		fmt.Println(err, expected)
+		t.Log("passing: should return error if phone_number is not provided")
+	}
+
+	// should return error if phone_number min11-max11 is not provided
+	expected = "phone_number: the length must be exactly 11."
+
+	if err != nil && err.Error() == expected {
+		fmt.Println(err.Error(), expected)
+		t.Errorf("should return error if phone_number the length must be exactly 11.: %v", err)
+	} else if err == nil {
+		fmt.Println(err, expected)
+		t.Log("passing: should return error if phone_number the length must be exactly 11.")
+	}
+
+	// should return nil if all data is valid
+	if err == nil {
+		t.Log("passing: should return nil if all data is valid.")
+	}
 }
 
 // name cpf email phone_number
-
-// should return error if phone_number is not provided
-// should return error if phone_number min11-max11 is not provided
-// should return nil if all data is valid
