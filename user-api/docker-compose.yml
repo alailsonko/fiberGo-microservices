@@ -9,8 +9,11 @@ services:
           - .:/go/src/BE-AalailsonAndrade/user-api
         working_dir: /go/src/BE-AalailsonAndrade/user-api
         # command: air -c .air.toml
+        ports:
+          - 3030:3030
         environment:
             REDIS_URL: redis_user:6379
+            PORT: 3030
     redis_user:
         image: sickp/alpine-redis:3.2.2
         # ports:
