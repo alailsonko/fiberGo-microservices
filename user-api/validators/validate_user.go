@@ -21,6 +21,7 @@ func (ut User) ValidateUser() error {
 		validation.Field(&ut.Username, validation.Required),
 		validation.Field(&ut.Cpf, validation.Required, validation.Length(11, 11)),
 		validation.Field(&ut.Email, validation.Required, is.Email),
+		validation.Field(&ut.PhoneNumber, validation.Required, validation.Length(11, 11)),
 	)
 }
 
