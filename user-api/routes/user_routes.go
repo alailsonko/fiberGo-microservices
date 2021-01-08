@@ -8,4 +8,5 @@ import (
 // UserSetupRoutes - sets all routes for user
 func UserSetupRoutes(app *fiber.App) {
 	app.Post("/user", controllers.CREATEUser)
+	app.Get("/user", controllers.GETUsers)
 }
