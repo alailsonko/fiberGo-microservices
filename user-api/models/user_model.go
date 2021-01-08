@@ -1,10 +1,13 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 // UserModel - struct
-type UserModel struct {
+type User struct {
 	gorm.Model
+
 	Username    string `gorm:"not null" json:"username"`
 	Cpf         string `gorm:"not null" json:"cpf"`
 	Email       string `gorm:"not null" json:"email"`
