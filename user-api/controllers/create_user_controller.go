@@ -5,30 +5,31 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber/v2"
+	"user-api.com/database"
 	"user-api.com/validators"
 )
 
 // User - types of the user
 type User struct {
-	validators.User
+	*validators.User
 }
 
 // CREATEUser - handler for create user
 func CREATEUser(c *fiber.Ctx) error {
-	// db := database.DB
-	ut := new(User)
+	db := database.DB
 
-	if err := c.BodyParser(ut); err != nil {
+	u := new(User)
+
+	if err := c.BodyParser(u); err != nil {
 		return err
 	}
 
-	log.Println(ut.Username)
-	log.Println(ut.Cpf)
-	log.Println(ut.Email)
-	log.Println(ut.PhoneNumber)
+	log.Println(u.Username)
+	log.Println(u.Cpf)
+	log.Println(u.Email)
+	log.Println(u.PhoneNumber)
 
-	err := ut.ValidateUser()
-
+	err := u.ValidateUser()
 	if err != nil {
 		fmt.Println(err.Error())
 		c.JSON(fiber.Map{"error": err.Error()})
@@ -36,7 +37,16 @@ func CREATEUser(c *fiber.Ctx) error {
 		return nil
 	}
 
+	log.Println("works")
+
+	dd := db.Create(&u)
+	log.Println("works", dd)
+
 	c.JSON(fiber.Map{"msg": "User created successfully."})
-	c.SendStatus(400)
+	log.Println("works")
+
+	c.SendStatus(200)
+	log.Println("works")
+
 	return nil
 }
