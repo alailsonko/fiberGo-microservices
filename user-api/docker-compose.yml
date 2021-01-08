@@ -15,6 +15,11 @@ services:
             REDIS_URL: redis_user:6379
             POSTGRESQL_URL: pg_user:5432
             PORT: 3030
+        depends_on:
+            - pg_user
+            - redis_user
+        links:
+            - pg_user
     redis_user:
         image: sickp/alpine-redis:3.2.2
         ports:
@@ -25,14 +30,19 @@ services:
             - helper
     pg_user:
         image: postgres
-        env_file:
-            - pg.env
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: userdatabase
+            POSTGRES_PORT: 5432
+            POSTGRES_HOST: 172.21.0.3
         volumes:
             - /var/lib/postgresql/data/
         ports:
             - 5432:5432
         expose:
             - 5432
+
     helper:
         image: alpine
         command: sh -c "echo never > /sys/kernel/mm/transparent_hugepage/enabled && echo 'vm.overcommit_memory=1' > /etc/sysctl.conf && sysctl vm.overcommit_memory=1" 
