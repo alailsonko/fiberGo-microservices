@@ -9,4 +9,5 @@ import (
 func UserSetupRoutes(app *fiber.App) {
 	app.Post("/user", controllers.CREATEUser)
 	app.Get("/user", controllers.GETUsers)
+	app.Get("/user/:id", controllers.GETUser)
 }
