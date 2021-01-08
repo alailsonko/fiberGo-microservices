@@ -40,7 +40,14 @@ func CREATEUser(c *fiber.Ctx) error {
 	log.Println("works")
 
 	dd := db.Create(&u)
-	log.Println("works", dd)
+	log.Println("works", dd.Error)
+
+	if dd.Error != nil {
+		fmt.Println(dd.Error)
+		c.JSON(fiber.Map{"error": dd.Error.Error()})
+		c.SendStatus(400)
+		return nil
+	}
 
 	c.JSON(fiber.Map{"msg": "User created successfully."})
 	log.Println("works")
