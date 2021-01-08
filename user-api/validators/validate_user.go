@@ -5,7 +5,7 @@ import (
 
 	validation "github.com/go-ozzo/ozzo-validation/v4"
 	"github.com/go-ozzo/ozzo-validation/v4/is"
-	"user-api.com/usecases"
+	"user-api.com/models"
 )
 
 // name cpf email phone_number
@@ -16,7 +16,7 @@ type error interface {
 
 // User - types of the user
 type User struct {
-	usecases.UserType
+	models.User
 }
 
 // ValidateUser - can validate the data of user
