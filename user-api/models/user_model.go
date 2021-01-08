@@ -4,12 +4,12 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-// UserModel - struct
+// User - struct
 type User struct {
 	gorm.Model
 
 	Username    string `gorm:"not null" json:"username"`
-	Cpf         string `gorm:"not null" json:"cpf"`
-	Email       string `gorm:"not null" json:"email"`
+	Cpf         string `gorm:"not null" gorm:"unique" json:"cpf"`
+	Email       string `gorm:"not null" gorm:"unique" json:"email"`
 	PhoneNumber string `gorm:"not null" json:"phone_number"`
 }
