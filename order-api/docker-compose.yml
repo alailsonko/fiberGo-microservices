@@ -21,6 +21,8 @@ services:
             - web
         links:
             - pg_order
+        networks:
+            - order-api_default
     redis_order:
         image: sickp/alpine-redis:3.2.2
         ports:
@@ -45,6 +47,8 @@ services:
         container_name: pg_order
         expose:
             - 5439
+        networks:
+            - order-api_default
 
     helper_order:
         image: alpine
@@ -58,3 +62,7 @@ services:
             - /bin/sh
             - -c 
             - ip -4 route list match 0/0 | awk '{print $$3" host.docker.internal"}' >> /etc/hosts && httpd-foreground 
+
+networks:                                                                                              
+    order-api_default:
+        driver: bridge
