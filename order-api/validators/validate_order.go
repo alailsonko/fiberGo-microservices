@@ -22,6 +22,7 @@ func (ot Order) ValidateOrder() error {
 		validation.Field(&ot.UserID, validation.Required),
 		validation.Field(&ot.ItemDescription, validation.Length(5, 100), validation.Required),
 		validation.Field(&ot.ItemQuantity, validation.Required),
+		validation.Field(&ot.ItemPrice, validation.Required),
 	)
 }
 
