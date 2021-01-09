@@ -120,9 +120,24 @@ func TestValidateOrder(t *testing.T) {
 		t.Log("passing: should return error case item_quantity is not provided.")
 	}
 	// should return error case item_price is not provided
+	ot.ItemPrice = 54
 
+	err = ot.ValidateOrder()
+
+	expected = "item_price: cannot be blank."
+
+	if err != nil && err.Error() == expected {
+		fmt.Println(err.Error(), expected)
+		t.Errorf("should return error case item_price is not provided: %v", err)
+	} else if err == nil {
+		fmt.Println(err, expected)
+		t.Log("passing: should return error case item_price is not provided.")
+	}
+	// should not return error case order data is valid
+	if err == nil {
+		t.Log("passing: should return nil if all data is valid.")
+	}
 }
 
 // should return error case item quantity is not float
 // should return error case item_price is not float
-// should return error case order data is valid
