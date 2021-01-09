@@ -21,6 +21,7 @@ func (ot Order) ValidateOrder() error {
 	return validation.ValidateStruct(&ot,
 		validation.Field(&ot.UserID, validation.Required),
 		validation.Field(&ot.ItemDescription, validation.Length(5, 100), validation.Required),
+		validation.Field(&ot.ItemQuantity, validation.Required),
 	)
 }
 
