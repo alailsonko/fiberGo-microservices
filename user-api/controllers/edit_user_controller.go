@@ -14,7 +14,7 @@ import (
 // 	*validators.User
 // }
 
-// CREATEUser - handler for create user
+// EDITUser - handler for create user
 func EDITUser(c *fiber.Ctx) error {
 	id := c.Params("id")
 	db := database.DB
