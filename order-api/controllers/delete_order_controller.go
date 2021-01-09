@@ -15,14 +15,14 @@ func DELETEOrder(c *fiber.Ctx) error {
 	db.First(&order, id)
 
 	if order.ID == 0 {
-		c.JSON(fiber.JSON{"message": "not found"})
+		c.JSON(fiber.Map{"message": "not found"})
 		c.Status(404)
 		return nil
 	}
 
 	db.Delete(&order)
 
-	c.JSON(fiber.JSON{"message": "deleted successfully"})
+	c.JSON(fiber.Map{"message": "deleted successfully"})
 	c.Status(200)
 
 	return nil
