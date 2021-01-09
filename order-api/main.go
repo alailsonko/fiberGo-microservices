@@ -1,19 +1,19 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"os"
 
-	redis "gopkg.in/redis.v4"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"order-api.com/database"
+	"order-api.com/setup_app"
 )
 
 func main() {
-	client := redis.NewClient(&redis.Options{
-		Addr:     os.Getenv("REDIS_URL"),
-		Password: "",
-		DB:       0,
-	})
 
-	pong, err := client.Ping().Result()
-	fmt.Println(pong, err)
+	app := setup_app.SetupApp()
+
+	database.ConnectPGDB()
+
+	log.Fatal(app.Listen(":" + os.Getenv("PORT")))
 }
