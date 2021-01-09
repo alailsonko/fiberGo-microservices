@@ -22,9 +22,21 @@ func TestValidateOrder(t *testing.T) {
 		fmt.Println(err, expected)
 		t.Log("passing: should return error if user_id is not provided.")
 	}
-}
+	// should return error case item_description is not provided
+	ot.ItemDescription = "valid description"
 
-// should return error case item_description is not provided
+	err = ot.ValidateOrder()
+
+	expected = "item_description: cannot be blank."
+
+	if err != nil && err.Error() == expected {
+		fmt.Println(err.Error(), expected)
+		t.Errorf("should return error if item_description is not provided: %v", err)
+	} else if err == nil {
+		fmt.Println(err, expected)
+		t.Log("passing: should return error if item_description is not provided.")
+	}
+}
 
 // should return error case item_description min5-max 200 is not provided
 // should return error case item_quantity is not provided
