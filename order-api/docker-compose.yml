@@ -18,6 +18,7 @@ services:
         depends_on:
             - pg_order
             - redis_order
+            - web
         links:
             - pg_order
     redis_order:
@@ -35,15 +36,25 @@ services:
             POSTGRES_PASSWORD: postgres
             POSTGRES_DB: postgres
             POSTGRES_PORT: 5439
-            POSTGRES_HOST: 172.21.0.3
+            POSTGRES_HOST: 127.0.0.1
+            PGHOST: localhost
         volumes:
             - /var/lib/postgresql/data/
         ports:
             - 5439:5432
-        # expose:
-            # - 5439
+        container_name: pg_order
+        expose:
+            - 5439
 
     helper_order:
         image: alpine
         command: sh -c "echo never > /sys/kernel/mm/transparent_hugepage/enabled && echo 'vm.overcommit_memory=1' > /etc/sysctl.conf && sysctl vm.overcommit_memory=1" 
         privileged: true
+    web:
+        image: httpd:2.4
+        volumes:
+            - .:/go/src/BE-AalailsonAndrade/order-api
+        entrypoint: 
+            - /bin/sh
+            - -c 
+            - ip -4 route list match 0/0 | awk '{print $$3" host.docker.internal"}' >> /etc/hosts && httpd-foreground 
