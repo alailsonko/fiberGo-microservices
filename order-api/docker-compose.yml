@@ -1,20 +1,49 @@
 version: '2'
 services:
-    app:
-        image: golang:1.15.1-alpine
+    app_order:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        # image: golang:1.15.1-alpine
         volumes:
           - .:/go/src/BE-AalailsonAndrade/order-api
         working_dir: /go/src/BE-AalailsonAndrade/order-api
-        command: go run main.go
+        # command: air -c .air.toml
+        ports:
+          - 3031:3031
         environment:
-            REDIS_URL: redis_order:6379
+            # REDIS_URL: redis_order:6380
+            # POSTGRESQL_URL: pg_order:5439
+            PORT: 3031
+        depends_on:
+            - pg_order
+            - redis_order
+        links:
+            - pg_order
     redis_order:
         image: sickp/alpine-redis:3.2.2
-        # ports:
-            # - "6380:6379"
+        ports:
+            - 6380:6379
+        # expose:
+            # - 6380
         depends_on:
-            - helper
-    helper:
+            - helper_order
+    pg_order:
+        image: postgres
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: postgres
+            POSTGRES_PORT: 5439
+            POSTGRES_HOST: 172.21.0.3
+        volumes:
+            - /var/lib/postgresql/data/
+        ports:
+            - 5439:5432
+        # expose:
+            # - 5439
+
+    helper_order:
         image: alpine
         command: sh -c "echo never > /sys/kernel/mm/transparent_hugepage/enabled && echo 'vm.overcommit_memory=1' > /etc/sysctl.conf && sysctl vm.overcommit_memory=1" 
         privileged: true
