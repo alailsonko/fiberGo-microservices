@@ -11,15 +11,16 @@ type error interface {
 	Error() string
 }
 
-// Order - types of the user
+// Order - types of the order
 type Order struct {
 	models.Order
 }
 
-// ValidateOrder - can validate the data of user
+// ValidateOrder - can validate the data of order
 func (ot Order) ValidateOrder() error {
 	return validation.ValidateStruct(&ot,
 		validation.Field(&ot.UserID, validation.Required),
+		validation.Field(&ot.ItemDescription, validation.Required),
 	)
 }
 
