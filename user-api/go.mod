@@ -7,6 +7,7 @@ require (
 	github.com/andybalholm/brotli v1.0.1 // indirect
 	github.com/dchest/safefile v0.0.0-20151022103144-855e8d98f185 // indirect
 	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
+	github.com/gofiber/cors v0.2.2
 	github.com/gofiber/fiber/v2 v2.3.2
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/jinzhu/gorm v1.9.16
