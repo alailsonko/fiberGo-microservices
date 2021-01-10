@@ -11,5 +11,6 @@ func OrderSetupRoutes(app *fiber.App) {
 	app.Get("/order/:id", controllers.GETOrder)
 	app.Delete("/order/:id", controllers.DELETEOrder)
 	app.Put("/order/:id", controllers.EDITOrder)
+	app.Get("/orders-by-user/:id", controllers.GETOrdersByUser)
 	app.Get("/order", controllers.GETOrders)
 }
