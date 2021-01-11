@@ -5,9 +5,9 @@ import (
 
 	"github.com/go-redis/redis"
 	"user-api.com/models"
-	"user-api.com/repositories"
 )
 
+// GetUsersCache implements logic control of caching
 func (c *Cache) GetUsersCache() ([]models.User, error) {
 	b, err := c.Get("users")
 
@@ -16,20 +16,8 @@ func (c *Cache) GetUsersCache() ([]models.User, error) {
 	}
 
 	if err == redis.Nil {
-
-		data, err := repositories.GETUsersRepository()
-
-		if err != nil {
-
-			return nil, err
-		}
-		byteData, _ := json.Marshal(&data)
-		if err := c.Set("users", byteData); err != nil {
-
-			return nil, err
-		}
-
-		return data, nil
+		data, err := c.UpdateUsersCache()
+		return data, err
 	}
 
 	var data []models.User
