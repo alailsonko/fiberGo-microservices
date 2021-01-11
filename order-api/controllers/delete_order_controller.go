@@ -2,11 +2,13 @@ package controllers
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"order-api.com/cache"
 	"order-api.com/database"
 	"order-api.com/models"
 )
 
 func DELETEOrder(c *fiber.Ctx) error {
+	var cc *cache.Cache
 	id := c.Params("id")
 	db := database.DB
 
@@ -22,8 +24,8 @@ func DELETEOrder(c *fiber.Ctx) error {
 
 	db.Delete(&order)
 
+	cc.UpdateOrdersCache()
 	c.JSON(fiber.Map{"message": "deleted successfully"})
 	c.Status(200)
-
 	return nil
 }
