@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
+	"user-api.com/cache"
 	"user-api.com/database"
 	"user-api.com/validators"
 )
@@ -16,6 +16,8 @@ type User struct {
 
 // CREATEUser - handler for create user
 func CREATEUser(c *fiber.Ctx) error {
+	var cc *cache.Cache
+
 	db := database.DB
 
 	u := new(User)
@@ -24,36 +26,23 @@ func CREATEUser(c *fiber.Ctx) error {
 		return err
 	}
 
-	log.Println(u.Username)
-	log.Println(u.Cpf)
-	log.Println(u.Email)
-	log.Println(u.PhoneNumber)
-
 	err := u.ValidateUser()
 	if err != nil {
-		fmt.Println(err.Error())
 		c.JSON(fiber.Map{"error": err.Error()})
 		c.SendStatus(400)
 		return nil
 	}
 
-	log.Println("works")
-
 	dd := db.Create(&u)
 	log.Println("works", dd.Error)
 
 	if dd.Error != nil {
-		fmt.Println(dd.Error)
 		c.JSON(fiber.Map{"error": dd.Error.Error()})
 		c.SendStatus(400)
 		return nil
 	}
-
+	cc.UpdateUsersCache()
 	c.JSON(fiber.Map{"msg": "User created successfully."})
-	log.Println("works")
-
 	c.SendStatus(200)
-	log.Println("works")
-
 	return nil
 }

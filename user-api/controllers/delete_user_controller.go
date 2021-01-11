@@ -2,11 +2,14 @@ package controllers
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"user-api.com/cache"
 	"user-api.com/database"
 	"user-api.com/models"
 )
 
 func DELETEUser(c *fiber.Ctx) error {
+	var cc *cache.Cache
+
 	id := c.Params("id")
 	db := database.DB
 
@@ -23,6 +26,6 @@ func DELETEUser(c *fiber.Ctx) error {
 
 	c.JSON(fiber.Map{"message": "delete successfully"})
 	c.Status(200)
-
+	cc.UpdateUsersCache()
 	return nil
 }
