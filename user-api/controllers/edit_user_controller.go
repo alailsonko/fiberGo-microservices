@@ -10,12 +10,17 @@ import (
 	"user-api.com/models"
 )
 
-// // User - types of the user
-// type User struct {
-// 	*validators.User
-// }
-
-// EDITUser - handler for create user
+// EDITUser godoc
+// @Summary edit an user
+// @Description edit user by ID
+// @ID edit-user-by-string
+// @Accept   json
+// @Produce  json
+// @Param id path string true "UserID"
+// @Param user body docs.User true "accepts user data"
+// @Success 200 {object} docs.HTTPOk
+// @Failure 404 {object} docs.HTTPError
+// @Router /user/{id} [put]
 func EDITUser(c *fiber.Ctx) error {
 	var cc *cache.Cache
 

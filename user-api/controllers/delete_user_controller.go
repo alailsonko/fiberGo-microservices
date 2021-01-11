@@ -7,6 +7,15 @@ import (
 	"user-api.com/models"
 )
 
+// DELETETUser godoc
+// @Summary delete an user
+// @Description delete user by ID
+// @ID delete-user-by-string
+// @Produce  json
+// @Param id path string true "UserID"
+// @Success 200 {object} docs.HTTPOk
+// @Failure 404 {object} docs.HTTPError
+// @Router /user/{id} [delete]
 func DELETEUser(c *fiber.Ctx) error {
 	var cc *cache.Cache
 

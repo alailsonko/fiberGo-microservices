@@ -5,7 +5,15 @@ import (
 	"user-api.com/cache"
 )
 
-// GETUser controller
+// GETUser godoc
+// @Summary get an user
+// @Description get user by ID
+// @ID get-user-by-int
+// @Produce  json
+// @Param id path string true "User ID"
+// @Success 200 {object} models.User
+// @Failure 404 {object} docs.HTTPError
+// @Router /user/{id} [get]
 func GETUser(c *fiber.Ctx) error {
 	id := c.Params("id")
 

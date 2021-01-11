@@ -14,7 +14,16 @@ type User struct {
 	*validators.User
 }
 
-// CREATEUser - handler for create user
+// CREATEUser godoc
+// @Summary create an user
+// @Description create user by ID
+// @ID create-user-by-string
+// @Accept   json
+// @Produce  json
+// @Param user body docs.User true "accepts user data"
+// @Success 200 {object} docs.HTTPOk
+// @Failure 404 {object} docs.HTTPError
+// @Router /user [post]
 func CREATEUser(c *fiber.Ctx) error {
 	var cc *cache.Cache
 
