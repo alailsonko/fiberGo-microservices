@@ -10,7 +10,7 @@ func GETUsers(c *fiber.Ctx) error {
 	users, err := d.GetUsersCache()
 
 	if err != nil {
-		c.JSON(fiber.Map{"error": "not found"})
+		c.JSON(fiber.Map{"error": err})
 		c.Status(404)
 		return nil
 	}
