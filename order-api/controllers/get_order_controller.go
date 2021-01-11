@@ -5,6 +5,15 @@ import (
 	"order-api.com/cache"
 )
 
+// GETOrder godoc
+// @Summary get an order
+// @Description get order by ID
+// @ID get-order-by-int
+// @Produce  json
+// @Param id path string true "Order ID"
+// @Success 200 {object} models.Order
+// @Failure 404 {object} docs.HTTPError
+// @Router /order/:id [get]
 func GETOrder(c *fiber.Ctx) error {
 	id := c.Params("id")
 	var cc *cache.Cache

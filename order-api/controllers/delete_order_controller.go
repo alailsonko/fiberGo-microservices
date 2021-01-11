@@ -7,6 +7,15 @@ import (
 	"order-api.com/models"
 )
 
+// DELETETOrder godoc
+// @Summary delete an order
+// @Description delete order by ID
+// @ID delete-order-by-string
+// @Produce  json
+// @Param id path string true "OrderID"
+// @Success 200 {object} docs.HTTPOk
+// @Failure 404 {object} docs.HTTPError
+// @Router /order/:id [delete]
 func DELETEOrder(c *fiber.Ctx) error {
 	var cc *cache.Cache
 	id := c.Params("id")

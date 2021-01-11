@@ -13,7 +13,16 @@ type Order struct {
 	*validators.Order
 }
 
-// CREATEOrder - handler for create order
+// CREATEOrder godoc
+// @Summary create an order
+// @Description create order by ID
+// @ID create-order-by-string
+// @Accept   json
+// @Produce  json
+// @Param order body docs.Order true "accepts order data"
+// @Success 200 {object} docs.HTTPOk
+// @Failure 404 {object} docs.HTTPError
+// @Router /order [post]
 func CREATEOrder(c *fiber.Ctx) error {
 	var cc *cache.Cache
 	db := database.DB

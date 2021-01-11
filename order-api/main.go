@@ -6,6 +6,7 @@ import (
 
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"order-api.com/database"
+	_ "order-api.com/docs"
 	"order-api.com/routes"
 	"order-api.com/setup_app"
 )

@@ -5,6 +5,13 @@ import (
 	"order-api.com/cache"
 )
 
+// GETOrders godoc
+// @Summary Get orders
+// @Description get all orders
+// @Produce  json
+// @Success 200 {object} []models.Order
+// @Failure 404 {object} docs.HTTPError
+// @Router /order [get]
 func GETOrders(c *fiber.Ctx) error {
 	var cc *cache.Cache
 

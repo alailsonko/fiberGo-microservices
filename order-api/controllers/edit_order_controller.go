@@ -8,7 +8,17 @@ import (
 	"order-api.com/utils"
 )
 
-// EDITOrder - handler for create order
+// EDITOrder godoc
+// @Summary edit an order
+// @Description edit order by ID
+// @ID edit-order-by-string
+// @Accept   json
+// @Produce  json
+// @Param id path string true "UserID"
+// @Param order body docs.Order true "accepts order data"
+// @Success 200 {object} docs.HTTPOk
+// @Failure 404 {object} docs.HTTPError
+// @Router /order/:id [put]
 func EDITOrder(c *fiber.Ctx) error {
 	var cc *cache.Cache
 	id := c.Params("id")

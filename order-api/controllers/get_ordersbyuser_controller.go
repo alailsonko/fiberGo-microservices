@@ -26,7 +26,15 @@ type Response struct {
 	Data User `json:"data"`
 }
 
-// GETOrdersByUser - get all orders by user
+// GETOrdersByUser godoc
+// @Summary get getordersbyuser
+// @Description get orders by user ID
+// @ID get-order-by-user-id-int
+// @Produce  json
+// @Param id path string true "User ID"
+// @Success 200 {object} docs.OrdersByUser
+// @Failure 404 {object} docs.HTTPError
+// @Router /orders-by-user/:id [get]
 func GETOrdersByUser(c *fiber.Ctx) error {
 
 	idUser := c.Params("id")
