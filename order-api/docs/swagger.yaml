@@ -1,0 +1,196 @@
+definitions:
+  docs.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: status bad request
+        type: string
+    type: object
+  docs.HTTPOk:
+    properties:
+      code:
+        example: 200
+        type: integer
+      message:
+        example: status successfully
+        type: string
+    type: object
+  docs.Order:
+    properties:
+      item_description:
+        example: valid description
+        type: string
+      item_price:
+        example: 353.5
+        type: number
+      item_quantity:
+        example: 6
+        type: number
+      user_id:
+        example: "6"
+        type: string
+    type: object
+  docs.OrdersByUser:
+    type: object
+  models.Order:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      id:
+        type: integer
+      item_description:
+        type: string
+      item_price:
+        type: number
+      item_quantity:
+        type: number
+      total_price:
+        type: number
+      updatedAt:
+        type: string
+      user_id:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /order:
+    get:
+      description: get all orders
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Order'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/docs.HTTPError'
+      summary: Get orders
+    post:
+      consumes:
+      - application/json
+      description: create order by ID
+      operationId: create-order-by-string
+      parameters:
+      - description: accepts order data
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/docs.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/docs.HTTPOk'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/docs.HTTPError'
+      summary: create an order
+  /order/{id}:
+    delete:
+      description: delete order by ID
+      operationId: delete-order-by-string
+      parameters:
+      - description: OrderID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/docs.HTTPOk'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/docs.HTTPError'
+      summary: delete an order
+    get:
+      description: get order by ID
+      operationId: get-order-by-int
+      parameters:
+      - description: Order ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Order'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/docs.HTTPError'
+      summary: get an order
+    put:
+      consumes:
+      - application/json
+      description: edit order by ID
+      operationId: edit-order-by-string
+      parameters:
+      - description: UserID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: accepts order data
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/docs.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/docs.HTTPOk'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/docs.HTTPError'
+      summary: edit an order
+  /orders-by-user/:id:
+    get:
+      description: get orders by user ID
+      operationId: get-order-by-user-id-int
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/docs.OrdersByUser'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/docs.HTTPError'
+      summary: get getordersbyuser
+swagger: "2.0"

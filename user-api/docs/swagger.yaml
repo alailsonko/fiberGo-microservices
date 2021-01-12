@@ -1,0 +1,181 @@
+basePath: /
+definitions:
+  docs.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: status bad request
+        type: string
+    type: object
+  docs.HTTPOk:
+    properties:
+      code:
+        example: 200
+        type: integer
+      message:
+        example: status successfully
+        type: string
+    type: object
+  docs.User:
+    properties:
+      cpf:
+        example: "12345678911"
+        type: string
+      email:
+        example: valid@mail.com
+        type: string
+      phone_number:
+        example: "8699999999"
+        type: string
+      username:
+        example: valid username
+        type: string
+    type: object
+  models.User:
+    properties:
+      cpf:
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      phone_number:
+        type: string
+      updatedAt:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:3030
+info:
+  contact:
+    email: fiber@swagger.io
+    name: API Support
+  description: This is a sample swagger for Fiber
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Fiber Example API
+  version: "1.0"
+paths:
+  /user:
+    get:
+      description: get all users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/docs.HTTPError'
+      summary: Get users
+    post:
+      consumes:
+      - application/json
+      description: create user by ID
+      operationId: create-user-by-string
+      parameters:
+      - description: accepts user data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/docs.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/docs.HTTPOk'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/docs.HTTPError'
+      summary: create an user
+  /user/{id}:
+    delete:
+      description: delete user by ID
+      operationId: delete-user-by-string
+      parameters:
+      - description: UserID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/docs.HTTPOk'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/docs.HTTPError'
+      summary: delete an user
+    get:
+      description: get user by ID
+      operationId: get-user-by-int
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/docs.HTTPError'
+      summary: get an user
+    put:
+      consumes:
+      - application/json
+      description: edit user by ID
+      operationId: edit-user-by-string
+      parameters:
+      - description: UserID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: accepts user data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/docs.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/docs.HTTPOk'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/docs.HTTPError'
+      summary: edit an user
+swagger: "2.0"

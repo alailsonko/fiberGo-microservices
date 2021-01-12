@@ -1,6 +1,65 @@
 version: '2'
 services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        # image: golang:1.15.1-alpine
+        volumes:
+          - .:/go/src/BE-AalailsonAndrade/user-api
+        working_dir: /go/src/BE-AalailsonAndrade/user-api
+        # command: air -c .air.toml
+        ports:
+          - 3030:3030
+        expose: 
+            - 3030
+        environment:
+            REDIS_URL: redis_user:6379
+            POSTGRESQL_URL: pg_user:5432
+            PORT: 3030
+        depends_on:
+            - pg_user
+            - redis_user
+            - web
+        links:
+            - pg_user
+        networks:
+            - order-api_default
+            - default
     redis_user:
         image: sickp/alpine-redis:3.2.2
         ports:
-            - "6379:6379"
+            - 6379:6379
+        expose:
+            - 6379
+        depends_on:
+            - helper
+    pg_user:
+        image: postgres
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: userdatabase
+            POSTGRES_PORT: 5432
+            POSTGRES_HOST: 172.21.0.3
+        volumes:
+            - /var/lib/postgresql/data/
+        ports:
+            - 5432:5432
+        expose:
+            - 5432
+    helper:
+        image: alpine
+        command: sh -c "echo never > /sys/kernel/mm/transparent_hugepage/enabled && echo 'vm.overcommit_memory=1' > /etc/sysctl.conf && sysctl vm.overcommit_memory=1" 
+        privileged: true
+    web:
+        image: httpd:2.4
+        volumes:
+            - .:/go/src/BE-AalailsonAndrade/order-api
+        entrypoint: 
+            - /bin/sh
+            - -c 
+            - ip -4 route list match 0/0 | awk '{print $$3" host.docker.internal"}' >> /etc/hosts && httpd-foreground 
+networks: 
+    order-api_default:
+        external: true
