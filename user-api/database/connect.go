@@ -20,9 +20,6 @@ func ConnectPGDB() {
 	p := config.Config("POSTGRES_PORT")
 
 	port, err := strconv.ParseUint(p, 10, 32)
-
-	log.Printf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", config.Config("POSTGRES_HOST"), port, config.Config("POSTGRES_USER"), config.Config("POSTGRES_PASSWORD"), config.Config("POSTGRES_DB"))
-
 	DB, err = gorm.Open("postgres", fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", config.Config("POSTGRES_HOST"), port, config.Config("POSTGRES_USER"), config.Config("POSTGRES_PASSWORD"), config.Config("POSTGRES_DB")))
 
 	if err != nil {
